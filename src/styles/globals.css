@@ -3,7 +3,18 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background: 245 247 250;
+    --background-foreground: 255 255 255;
+
+    --primary: 122 65 248;
+    --foreground: 78 101 134;
+
+    --destructive: 255 86 91;
+    --success: 48 209 103;
+  }
+
   body {
-    @apply antialiased;
+    @apply antialiased bg-background text-foreground;
   }
 }
