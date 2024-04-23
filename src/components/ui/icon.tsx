@@ -3,7 +3,7 @@ import {
   LayoutGridIcon,
   LucideProps,
   type LucideIcon
-} from "lucide-react";
+} from 'lucide-react';
 
 export const Icon = {
   calendar: CalendarDaysIcon,
