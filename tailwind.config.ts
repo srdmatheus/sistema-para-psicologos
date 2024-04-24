@@ -7,6 +7,9 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
+    fontFamily: {
+      manrope: ['var(--font-manrope)']
+    },
     extend: {
       colors: {
         background: {
