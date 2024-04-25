@@ -16,7 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={manrope.variable}>{children}</body>
+      <body
+        className={`${manrope.variable} h-dvh bg-background font-manrope font-medium text-foreground antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

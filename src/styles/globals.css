@@ -13,8 +13,4 @@
     --destructive: 255 86 91;
     --success: 48 209 103;
   }
-
-  body {
-    @apply antialiased bg-background text-foreground font-manrope font-medium;
-  }
 }
