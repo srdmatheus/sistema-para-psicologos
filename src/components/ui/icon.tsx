@@ -1,13 +1,25 @@
 import {
   CalendarDaysIcon,
+  ContactRoundIcon,
   LayoutGridIcon,
   LucideProps,
+  NotebookTextIcon,
+  PlusIcon,
+  SearchIcon,
+  UserPlusIcon,
+  VideoIcon,
   type LucideIcon
 } from 'lucide-react';
 
 export const Icon = {
   calendar: CalendarDaysIcon,
-  grid: LayoutGridIcon
+  contact: ContactRoundIcon,
+  grid: LayoutGridIcon,
+  notebookText: NotebookTextIcon,
+  plus: PlusIcon,
+  search: SearchIcon,
+  userPlus: UserPlusIcon,
+  video: VideoIcon
 };
 
 export type IconType = LucideIcon;
