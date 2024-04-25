@@ -14,13 +14,14 @@ export type NavItem = {
 
 export const NavItem = ({ href, icon, name }: NavItem) => {
   const pathname = usePathname();
+  const isActive = pathname === href;
   return (
     <li key={href}>
       <Link
         href={href}
         className={cn(
           'flex items-center gap-2 rounded p-2 hover:bg-background',
-          pathname.startsWith(href) && 'text-primary'
+          isActive && 'text-primary'
         )}
       >
         <DynamicIcon name={icon} className="size-5" /> {name}
