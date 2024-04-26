@@ -1,2 +1,2 @@
 export * from './sidebar/sidebar';
-export * from './add-patient-dialog';
+export * from './create-customer-dialog';
