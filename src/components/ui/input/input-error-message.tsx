@@ -1,7 +1,9 @@
-type ErrorMessageProps = {
-  children: string;
+import { ReactNode } from 'react';
+
+type InputErrorMessageProps = {
+  children: ReactNode;
 };
 
-export const ErrorMessage = ({ children }: ErrorMessageProps) => {
-  return <span className="block text-sm">{children}</span>;
+export const InputErrorMessage = ({ children }: InputErrorMessageProps) => {
+  return <span className="block text-sm text-destructive">{children}</span>;
 };

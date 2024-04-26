@@ -49,14 +49,7 @@ export const InputRoot = ({
 
   return (
     <InputRootContext.Provider value={contextValue}>
-      <div
-        className={cn(
-          'bg-background-contrast flex flex-col rounded-lg px-4 py-2 ring-primary ring-offset-2 focus-within:ring-2',
-          hasError && 'border-2 border-destructive',
-          className
-        )}
-        {...props}
-      >
+      <div className={cn('', hasError && '', className)} {...props}>
         {children}
       </div>
     </InputRootContext.Provider>
