@@ -1,0 +1,46 @@
+{
+  "customers": [
+    {
+      "id": "032f",
+      "name": "Matheus Dias",
+      "phone": "31985291863",
+      "birthDate": "2024-04-09",
+      "email": "srdmatheus@gmail.com",
+      "insurance": "no",
+      "status": "active",
+      "next_session": "2024-04-03",
+      "next_session_price": "100"
+    },
+    {
+      "id": "7fa4",
+      "name": "FACULDADE MINAS GERAIS - FAMIG",
+      "phone": "",
+      "birthDate": "",
+      "email": "direcao@famig.edu.br",
+      "status": "active",
+      "next_session": "",
+      "next_session_price": ""
+    },
+    {
+      "id": "845b",
+      "name": "Pedro",
+      "phone": "",
+      "birthDate": "",
+      "email": "",
+      "status": "active",
+      "next_session": "",
+      "next_session_price": ""
+    },
+    {
+      "id": "4953",
+      "name": "Nathália Leandra Reis Costa",
+      "phone": "",
+      "birthDate": "2000-03-24",
+      "email": "asdad@asdadsa.com",
+      "insurance": "no",
+      "status": "active",
+      "next_session": "",
+      "next_session_price": "10"
+    }
+  ]
+}

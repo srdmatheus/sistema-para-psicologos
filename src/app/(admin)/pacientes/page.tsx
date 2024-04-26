@@ -1,7 +1,11 @@
-import { AddPatientDialog } from '@/components/app/';
+import { getCustomers } from '@/actions/get-customers';
+
+import { CreateCustomerDialog } from '@/components/app/';
+import { CustomerList } from '@/components/app/customer-list';
 import { Icon } from '@/components/ui';
 
-export default function PatientsPage() {
+export default async function PatientsPage() {
+  const customers = await getCustomers();
   return (
     <section className="p-8">
       <h1 className="text-3xl font-extrabold tracking-tight">Pacientes</h1>
@@ -15,8 +19,10 @@ export default function PatientsPage() {
             title="Pesquisar paciente"
           />
         </div>
-
-        <AddPatientDialog />
+        <CreateCustomerDialog />
+      </div>
+      <div>
+        <CustomerList customers={customers} />
       </div>
     </section>
   );
