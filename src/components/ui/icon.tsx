@@ -1,9 +1,11 @@
 import {
+  AtSignIcon,
   CalendarDaysIcon,
   ContactRoundIcon,
   LayoutGridIcon,
   LucideProps,
   NotebookTextIcon,
+  PhoneIcon,
   PlusIcon,
   SearchIcon,
   UserPlusIcon,
@@ -12,10 +14,12 @@ import {
 } from 'lucide-react';
 
 export const Icon = {
+  atSign: AtSignIcon,
   calendar: CalendarDaysIcon,
   contact: ContactRoundIcon,
   grid: LayoutGridIcon,
   notebookText: NotebookTextIcon,
+  phone: PhoneIcon,
   plus: PlusIcon,
   search: SearchIcon,
   userPlus: UserPlusIcon,
