@@ -10,7 +10,14 @@ import { Button, Dialog, Icon } from '../ui';
 import { Input } from '../ui/input';
 
 const formSchema = z.object({
-  name: z.string().min(1, { message: 'Nome é obrigatório' })
+  name: z.string().min(1, { message: 'Nome é obrigatório' }),
+  phone: z.string().optional(),
+  birthDate: z.string().optional(),
+  email: z.string().email().optional(),
+  insurance: z.boolean().optional(),
+  status: z.boolean(),
+  next_session: z.date().optional(),
+  next_session_price: z.number().optional()
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -19,8 +26,9 @@ export const AddPatientDialog = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
-  } = useForm({
+  } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   });
   const [open, setOpen] = useState(false);
@@ -28,6 +36,16 @@ export const AddPatientDialog = () => {
   const onSubmit = async (data: FormData) => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log(data);
+    setOpen(false);
+  };
+
+  const handleCancel = () => {
+    reset(
+      (formValues) => ({
+        ...formValues
+      }),
+      { keepErrors: false }
+    );
     setOpen(false);
   };
 
@@ -44,27 +62,59 @@ export const AddPatientDialog = () => {
         <h1 className="text-lg font-bold tracking-tight">
           Adicionar novo cliente
         </h1>
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-          <Input.Root>
-            <p className="text-sm">Nome Completo</p>
-            <Input.Text {...register('name')} />
-          </Input.Root>
-          <div className="flex w-full items-center gap-2 rounded-xl border bg-background-foreground p-2 ring-primary focus-within:ring-2">
-            <Icon.userPlus className="size-4" />
-            <input
-              type="text"
-              className="w-full text-sm outline-none placeholder:text-foreground"
-              placeholder="Telefone"
-            />
+        <form
+          className="flex w-full flex-col gap-4"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className="grid grid-cols-2 gap-2">
+            <Input.Root setError={!!errors.name?.message}>
+              <div className="flex items-center justify-between px-1">
+                <Input.Label htmlFor="name">Nome completo</Input.Label>
+                <Input.ErrorMessage>{errors.name?.message}</Input.ErrorMessage>
+              </div>
+              <Input.Text
+                {...register('name')}
+                id="name"
+                startContent={<Icon.userPlus className="size-4" />}
+              />
+            </Input.Root>
+
+            <Input.Root setError={!!errors.phone?.message}>
+              <Input.Label htmlFor="phone" className="px-1">
+                Telefone
+              </Input.Label>
+
+              <Input.Text
+                {...register('phone')}
+                id="phone"
+                startContent={<Icon.phone className="size-4" />}
+              />
+            </Input.Root>
+            <Input.Root setError={!!errors.name?.message}>
+              <Input.Label htmlFor="name" className="px-1">
+                Data de nascimento
+              </Input.Label>
+
+              <Input.Text
+                {...register('birthDate')}
+                id="birthDate"
+                type="date"
+                startContent={<Icon.calendar className="size-4" />}
+              />
+            </Input.Root>
+            <Input.Root setError={!!errors.phone?.message}>
+              <Input.Label htmlFor="email" className="px-1">
+                E-mail
+              </Input.Label>
+
+              <Input.Text
+                {...register('email')}
+                id="email"
+                startContent={<Icon.atSign className="size-4" />}
+              />
+            </Input.Root>
           </div>
-          <div className="flex w-full items-center gap-2 rounded-xl border bg-background-foreground p-2 ring-primary focus-within:ring-2">
-            <Icon.userPlus className="size-4" />
-            <input
-              type="date"
-              className="w-full text-sm outline-none placeholder:text-foreground"
-              placeholder="Data de nascimento"
-            />
-          </div>
+          <hr />
           <div className="flex w-full items-center gap-2">
             <p>Possui convênio</p>
             <input
@@ -107,7 +157,7 @@ export const AddPatientDialog = () => {
             />
             <label
               htmlFor="ativo"
-              className="rounded-lg border-2 px-3 py-1.5 text-sm peer-checked:border-primary peer-checked:bg-primary/10 peer-checked:font-bold peer-checked:text-primary"
+              className="rounded-lg border-2 px-3 py-1.5 text-sm peer-checked:border-success peer-checked:bg-success/10 peer-checked:font-bold peer-checked:text-success"
             >
               Ativo
             </label>
@@ -127,23 +177,24 @@ export const AddPatientDialog = () => {
           </div>
 
           <p>Agendar próxima sessão</p>
-          <div className="flex w-full items-center gap-2 rounded-xl border bg-background-foreground p-2 ring-primary focus-within:ring-2">
-            <Icon.userPlus className="size-4" />
-            <input
-              type="date"
-              className="w-full text-sm outline-none placeholder:text-foreground"
-              placeholder="Data de nascimento"
-            />
-          </div>
+          <div className="flex gap-2">
+            <div className="flex w-full items-center gap-2 rounded-xl border bg-background-foreground p-2 ring-primary focus-within:ring-2">
+              <Icon.userPlus className="size-4" />
+              <input
+                type="date"
+                className="w-full text-sm outline-none placeholder:text-foreground"
+                placeholder="Data de nascimento"
+              />
+            </div>
 
-          <p>Valor da sessão</p>
-          <div className="flex w-full items-center gap-2 rounded-xl border bg-background-foreground p-2 ring-primary focus-within:ring-2">
-            <Icon.userPlus className="size-4" />
-            <input
-              type="number"
-              className="w-full text-sm outline-none placeholder:text-foreground"
-              placeholder="Valor da sessão"
-            />
+            <div className="flex w-full items-center gap-2 rounded-xl border bg-background-foreground p-2 ring-primary focus-within:ring-2">
+              <Icon.userPlus className="size-4" />
+              <input
+                type="number"
+                className="w-full text-sm outline-none placeholder:text-foreground"
+                placeholder="Valor da sessão"
+              />
+            </div>
           </div>
           <div className="flex w-full items-center gap-2 rounded-xl border bg-background-foreground p-2 ring-primary focus-within:ring-2">
             <textarea
@@ -152,11 +203,10 @@ export const AddPatientDialog = () => {
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Dialog.Close asChild>
-              <Button type="button" variant="outline">
-                Cancelar
-              </Button>
-            </Dialog.Close>
+            <Button type="button" variant="outline" onClick={handleCancel}>
+              Cancelar
+            </Button>
+
             <Button type="submit">Adicionar</Button>
           </div>
         </form>
