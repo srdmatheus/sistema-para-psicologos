@@ -3,7 +3,7 @@ import { NavItem } from './nav-item';
 const navItems: NavItem[] = [
   { name: 'Dashboard', href: '/', icon: 'grid' },
   { name: 'Agendamentos', href: '/agendamentos', icon: 'calendar' },
-  { name: 'Pacientes', href: '/pacientes', icon: 'contact' },
+  { name: 'Clientes', href: '/clientes', icon: 'contact' },
   { name: 'Teleconsulta', href: '/teleconsulta', icon: 'video' },
   { name: 'Questionários', href: '/questionarios', icon: 'notebookText' }
 ];
@@ -19,7 +19,7 @@ export const Sidebar = () => {
           ))}
         </ul>
       </nav>
-      <footer>Deslogar</footer>
+      <footer>Sair</footer>
     </div>
   );
 };
