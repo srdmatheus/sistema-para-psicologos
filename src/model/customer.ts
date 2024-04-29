@@ -8,4 +8,11 @@ export type CustomerModel = {
   insurance?: string | undefined;
   next_session?: string | undefined;
   next_session_price?: string | undefined;
+  observations?: string;
+};
+
+export type CustomerSessionsModel = {
+  id: string;
+  status: 'pending' | 'success' | 'canceled';
+  date: string;
 };

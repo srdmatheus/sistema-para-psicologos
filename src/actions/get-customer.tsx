@@ -1,5 +1,7 @@
 'use server';
 
+import { CustomerModel } from '@/model/customer';
+
 export const getCustomer = async (id: string) => {
   try {
     const response = await fetch(`http://localhost:3001/customers/${id}`, {
@@ -9,7 +11,7 @@ export const getCustomer = async (id: string) => {
       }
     });
 
-    const dataFetch = await response.json();
+    const dataFetch: CustomerModel = await response.json();
 
     return dataFetch;
   } catch (error: unknown) {
