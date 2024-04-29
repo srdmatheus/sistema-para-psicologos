@@ -7,8 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { Button, Dialog, Icon } from '../ui';
-import { Input } from '../ui/input';
+import { Button, Dialog, Icon, Input } from '../ui';
 
 const formSchema = z.object({
   name: z.string().min(1, { message: 'Nome é obrigatório' }),
@@ -18,7 +17,8 @@ const formSchema = z.object({
   insurance: z.string().optional(),
   status: z.string(),
   next_session: z.string().optional(),
-  next_session_price: z.string().optional()
+  next_session_price: z.string().optional(),
+  observations: z.string().optional()
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -47,6 +47,12 @@ export const CreateCustomerDialog = ({
   const onSubmit = async (data: FormData) => {
     await createCustomer(data);
     console.log(data);
+    reset(
+      (formValues) => ({
+        ...formValues
+      }),
+      { keepErrors: false }
+    );
     setOpen(false);
   };
 
@@ -79,10 +85,10 @@ export const CreateCustomerDialog = ({
           Adicionar novo cliente
         </h1>
         <form
-          className="flex w-full flex-col gap-4"
+          className="flex w-full flex-col gap-2"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-4">
             <Input.Root setError={!!errors.name?.message}>
               <div className="flex items-center justify-between px-1">
                 <Input.Label htmlFor="name">Nome completo</Input.Label>
@@ -131,7 +137,6 @@ export const CreateCustomerDialog = ({
             </Input.Root>
           </div>
 
-          <hr />
           <div className="grid grid-cols-2 gap-2">
             <Input.Root>
               <Input.Label className="block px-1">Tem convênio</Input.Label>
@@ -170,7 +175,6 @@ export const CreateCustomerDialog = ({
             </Input.Root>
           </div>
 
-          <hr />
           <div className="grid grid-cols-2 gap-2">
             <Input.Root setError={!!errors.next_session?.message}>
               <Input.Label htmlFor="next_session" className="px-1">
@@ -205,6 +209,7 @@ export const CreateCustomerDialog = ({
           <Input.Root>
             <Input.Label htmlFor="observations">Observações</Input.Label>
             <textarea
+              {...register('observations')}
               className="h-20 w-full resize-none rounded-xl border p-2 text-sm outline-none"
               id="observations"
             />
