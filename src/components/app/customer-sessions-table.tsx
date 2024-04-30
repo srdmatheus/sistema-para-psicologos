@@ -29,29 +29,31 @@ const tableStatus = {
 
 export const CustomerSessionsTable = ({ data }: CustomerSessionsProps) => {
   return data.length ? (
-    <table className="w-full">
-      <thead>
-        <tr className="border-b text-center text-base font-bold">
-          <th className="text-center">Situação</th>
-          <th className="text-center">Data</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map(({ id, date, status }) => (
-          <tr key={id} className="even:bg-background">
-            <td className="my-1.5 flex items-center justify-center">
-              {tableStatus[status]}
-            </td>
-            <td>
-              <div className="flex items-center justify-center gap-1.5 text-sm">
-                <Icon.calendar className="size-3.5" />
-                <span>{date}</span>
-              </div>
-            </td>
+    <div className="h-96 overflow-y-auto">
+      <table className="w-full">
+        <thead>
+          <tr className="border-b text-center text-base font-bold">
+            <th className="text-center">Situação</th>
+            <th className="text-center">Data</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {data.map(({ id, date, status }) => (
+            <tr key={id} className="even:bg-background">
+              <td className="my-1.5 flex items-center justify-center">
+                {tableStatus[status]}
+              </td>
+              <td>
+                <div className="flex items-center justify-center gap-1.5 text-sm">
+                  <Icon.calendar className="size-3.5" />
+                  <span>{date}</span>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   ) : (
     <div className="flex flex-col gap-2 text-center">
       <p>Não há sessões cadastradas</p>

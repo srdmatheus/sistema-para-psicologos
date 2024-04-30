@@ -14,6 +14,35 @@ const tableData: CustomerSessionsModel[] = [
   { id: 'a454d', status: 'success', date: '12/11/2024 ~ 16h00' },
   { id: '9a54d', status: 'canceled', date: '12/11/2024 ~ 16h00' },
   { id: 'aa88d', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
+  { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' },
   { id: 'aa54f', status: 'success', date: '12/11/2024 ~ 16h00' }
 ];
 
@@ -24,7 +53,7 @@ export default async function CustomerPage({ params }: CustomerPageProps) {
     <section className="grid w-full grid-cols-10 divide-x">
       {!!customer && (
         <div className="col-span-6 p-8">
-          <div className="rounded-xl bg-background-foreground p-4">
+          <div className="h-full rounded-xl  bg-background-foreground p-4">
             <h2 className="text-2xl font-extrabold tracking-tight">
               Dados do cliente
             </h2>
@@ -34,7 +63,7 @@ export default async function CustomerPage({ params }: CustomerPageProps) {
       )}
 
       <div className="col-span-4 p-8">
-        <div className="rounded-xl bg-background-foreground p-8">
+        <div className="h-full rounded-xl bg-background-foreground p-8">
           <h2 className="pb-4 text-xl font-extrabold tracking-tight">
             Sessões
           </h2>

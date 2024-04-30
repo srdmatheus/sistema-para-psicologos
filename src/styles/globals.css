@@ -12,5 +12,26 @@
 
     --destructive: 255 86 91;
     --success: 48 209 103;
+
+    --scroll: 195 197 200;
+    --scroll-background: 145 147 150;
+  }
+
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: rgb(var(--scroll)) rgb(--var(--scroll-background));
+  }
+  *::-webkit-scrollbar {
+    width: 5px;
+  }
+  *::-webkit-scrollbar-track {
+    background: rgb(--var(--scroll-background));
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--scroll));
+    border-radius: 8px;
   }
 }
+
+
+  
