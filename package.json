@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:server": "npx json-server --watch -p 3001 db.json",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
