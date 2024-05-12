@@ -84,7 +84,8 @@ export const CreateCustomerDialog = ({
             buttonTitle
           ) : (
             <>
-              Adicionar novo cliente <Icon.userPlus className="size-4" />
+              <Icon.userPlus className="size-4" />
+              Novo cliente
             </>
           )}
         </Button>
