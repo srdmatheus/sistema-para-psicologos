@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CustomerStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Customer {
+  id            String         @id @default(uuid())
+  name          String
+  phone         String?
+  email         String?
+  insurance     Boolean?
+  status        CustomerStatus
+  description   String?
+  consultations Consultation[]
+  notes         Note[]
+  birthDate     DateTime?      @map(name: "birth_date")
+  createdAt     DateTime       @default(now()) @map(name: "created_at")
+  updatedAt     DateTime       @updatedAt @map(name: "updated_at")
+
+  @@map("customers")
+}
+
+enum ConsultationStatus {
+  SCHEDULED
+  CONCLUDED
+  CANCELED
+}
+
+model Consultation {
+  id         String             @id @default(uuid())
+  startTime  DateTime           @map(name: "start_time")
+  Customer   Customer           @relation(fields: [customerId], references: [id])
+  customerId String
+  status     ConsultationStatus @default(SCHEDULED)
+  createdAt  DateTime           @default(now()) @map(name: "created_at")
+  updatedAt  DateTime           @updatedAt @map(name: "updated_at")
+
+  @@map("consultations")
+}
+
+model Note {
+  id         String   @id @default(uuid())
+  note       String
+  Customer   Customer @relation(fields: [customerId], references: [id])
+  customerId String
+  createdAt  DateTime @default(now()) @map(name: "created_at")
+  updatedAt  DateTime @updatedAt @map(name: "updated_at")
+
+  @@map("notes")
+}
