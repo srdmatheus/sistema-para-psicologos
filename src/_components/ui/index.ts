@@ -6,3 +6,4 @@ export * from './dialog';
 export * from './icon';
 export * from './popover';
 export * from './skeleton';
+export * from './tooltip';
