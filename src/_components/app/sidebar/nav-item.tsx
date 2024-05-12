@@ -20,27 +20,25 @@ export const NavItem = ({ href, icon, name }: NavItem) => {
   const isActive = pathname === href;
 
   return (
-    <li key={href}>
-      <Tooltip.Provider>
-        <Tooltip.Root>
-          <Tooltip.Trigger asChild>
-            <Link
-              href={href}
-              className={cn(
-                'flex items-center gap-2 rounded p-2 hover:bg-background',
-                isActive && 'text-primary'
-              )}
-            >
-              <DynamicIcon name={icon} className="size-5" /> {!isMobile && name}
-            </Link>
-          </Tooltip.Trigger>
-          {isMobile && (
-            <Tooltip.Content>
-              <p>{name}</p>
-            </Tooltip.Content>
-          )}
-        </Tooltip.Root>
-      </Tooltip.Provider>
+    <li>
+      <Tooltip.Root>
+        <Tooltip.Trigger asChild>
+          <Link
+            href={href}
+            className={cn(
+              'flex items-center gap-2 rounded p-2 hover:bg-background',
+              isActive && 'text-primary'
+            )}
+          >
+            <DynamicIcon name={icon} className="size-5" /> {!isMobile && name}
+          </Link>
+        </Tooltip.Trigger>
+        {isMobile && (
+          <Tooltip.Content>
+            <p>{name}</p>
+          </Tooltip.Content>
+        )}
+      </Tooltip.Root>
     </li>
   );
 };

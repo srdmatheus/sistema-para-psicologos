@@ -4,6 +4,8 @@ import { manrope } from '@/_fonts';
 
 import '@/_styles/globals.css';
 
+import { Providers } from '@/_providers';
+
 export const metadata: Metadata = {
   title: 'Sistema para psicólogos',
   description: 'Sistema para psicólogos'
@@ -16,11 +18,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body
-        className={`${manrope.variable} h-dvh bg-background font-manrope font-medium text-foreground antialiased`}
-      >
-        {children}
-      </body>
+      <Providers>
+        <body
+          className={`${manrope.variable} h-dvh bg-background font-manrope font-medium text-foreground antialiased`}
+        >
+          {children}
+        </body>
+      </Providers>
     </html>
   );
 }
