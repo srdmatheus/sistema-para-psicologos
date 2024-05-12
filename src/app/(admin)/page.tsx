@@ -1,4 +1,4 @@
-import { Icon } from '@/components';
+import { Icon } from '@/_components';
 
 export default function AdminPage() {
   return (

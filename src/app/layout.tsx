@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
-import { manrope } from '@/fonts';
+import { manrope } from '@/_fonts';
 
-import '@/styles/globals.css';
+import '@/_styles/globals.css';
 
 export const metadata: Metadata = {
   title: 'Sistema para psicólogos',
