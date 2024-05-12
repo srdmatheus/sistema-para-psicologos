@@ -6,11 +6,11 @@ import { Button } from '@/_components';
 import { Note } from '@prisma/client';
 import { format } from 'date-fns';
 
-type CustomerNotesListProps = {
+type CustomerNoteListProps = {
   notes: Note[];
 };
 
-export const CustomerNotesList = ({ notes }: CustomerNotesListProps) => {
+export const CustomerNoteList = ({ notes }: CustomerNoteListProps) => {
   const [selectedNode, setSelectedNote] = useState<Note>();
 
   const handleSetNote = (noteId: string) => {
