@@ -1,26 +1,26 @@
-import { getCustomers } from '@/actions/get-customers';
-import { CreateCustomerDialog, CustomerList, Icon } from '@/components';
+import { Suspense } from 'react';
 
-export default async function PatientsPage() {
+import { getCustomers } from '@/_actions/get-customers';
+import { CreateCustomerDialog, CustomerList } from '@/_components';
+
+import { Search } from './_components/search';
+
+export default async function CustomerPage() {
   const customers = await getCustomers();
   return (
-    <section className="p-8">
-      <h1 className="text-3xl font-extrabold tracking-tight">Clientes</h1>
-      <div className="mt-8 flex gap-4">
-        <div className="flex w-96 items-center gap-2 rounded-xl border bg-background-foreground p-2 ring-primary focus-within:ring-2">
-          <Icon.search className="size-4" />
-          <input
-            type="text"
-            className="w-full outline-none placeholder:text-foreground"
-            placeholder="Pesquisar..."
-            title="Pesquisar paciente"
-          />
+    <>
+      <section className="w-full p-8">
+        <h1 className="text-3xl font-extrabold tracking-tight">Clientes</h1>
+        <div className="mt-8 flex gap-4">
+          <Search />
+          <CreateCustomerDialog />
         </div>
-        <CreateCustomerDialog />
-      </div>
-      <div>
-        <CustomerList customers={customers} />
-      </div>
-    </section>
+        <div className="mt-10 w-full rounded-xl bg-background-foreground p-4">
+          <Suspense fallback="carregando">
+            <CustomerList customers={customers} />
+          </Suspense>
+        </div>
+      </section>
+    </>
   );
 }
