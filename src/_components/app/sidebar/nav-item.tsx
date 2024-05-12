@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { DynamicIcon, IconName } from '@/_components';
+import { DynamicIcon, IconName, Tooltip } from '@/_components';
+import { useMediaQuery } from '@/_hooks/use-media-query';
 import { cn } from '@/_lib/utils';
 
 export type NavItem = {
@@ -14,18 +15,32 @@ export type NavItem = {
 
 export const NavItem = ({ href, icon, name }: NavItem) => {
   const pathname = usePathname();
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
   const isActive = pathname === href;
+
   return (
     <li key={href}>
-      <Link
-        href={href}
-        className={cn(
-          'flex items-center gap-2 rounded p-2 hover:bg-background',
-          isActive && 'text-primary'
-        )}
-      >
-        <DynamicIcon name={icon} className="size-5" /> {name}
-      </Link>
+      <Tooltip.Provider>
+        <Tooltip.Root>
+          <Tooltip.Trigger asChild>
+            <Link
+              href={href}
+              className={cn(
+                'flex items-center gap-2 rounded p-2 hover:bg-background',
+                isActive && 'text-primary'
+              )}
+            >
+              <DynamicIcon name={icon} className="size-5" /> {!isMobile && name}
+            </Link>
+          </Tooltip.Trigger>
+          {isMobile && (
+            <Tooltip.Content>
+              <p>{name}</p>
+            </Tooltip.Content>
+          )}
+        </Tooltip.Root>
+      </Tooltip.Provider>
     </li>
   );
 };

@@ -10,8 +10,10 @@ const navItems: NavItem[] = [
 
 export const Sidebar = () => {
   return (
-    <div className="flex h-full w-64 flex-col bg-background-foreground p-8">
-      <h2 className="pl-2 text-lg font-semibold">Olá, Maria!</h2>
+    <div className="flex h-full flex-col bg-background-foreground p-4 md:w-64 md:p-8">
+      <h2 className="hidden pl-2 text-lg font-semibold md:block">
+        Olá, Maria!
+      </h2>
       <nav className="flex-1 pt-10">
         <ul className="flex flex-col gap-4">
           {navItems.map((props) => (
