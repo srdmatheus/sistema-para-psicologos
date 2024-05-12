@@ -1,6 +1,8 @@
 import {
   AtSignIcon,
   CalendarDaysIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   CircleCheckIcon,
   CircleXIcon,
   ClockIcon,
@@ -22,6 +24,8 @@ import {
 export const Icon = {
   atSign: AtSignIcon,
   calendar: CalendarDaysIcon,
+  chevronLeft: ChevronLeftIcon,
+  chevronRight: ChevronRightIcon,
   circleCheck: CircleCheckIcon,
   circleX: CircleXIcon,
   clock: ClockIcon,

@@ -1,6 +1,6 @@
 import { ComponentProps, forwardRef, ReactNode } from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/_lib/utils';
 
 import { useInput } from './input-root';
 

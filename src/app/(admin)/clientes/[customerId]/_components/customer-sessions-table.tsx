@@ -1,25 +1,26 @@
-import { CustomerSessionsModel } from '@/model/customer';
-
-import { Button, Icon } from '../ui';
+import { getConsultations } from '@/_actions/get-consultations';
+import { CreateConsultationDialog } from '@/_components/app/create-consultation-dialog';
+import { Icon } from '@/_components/ui/icon';
+import { format } from 'date-fns';
 
 type CustomerSessionsProps = {
-  data: CustomerSessionsModel[];
+  customerId: string;
 };
 
 const tableStatus = {
-  pending: (
+  SCHEDULED: (
     <div className="flex items-center justify-start gap-2 text-xs font-semibold text-orange-500">
       <Icon.clock className="size-3.5" />
       <span>Agendado</span>
     </div>
   ),
-  success: (
+  CONCLUDED: (
     <div className="flex items-center justify-start gap-2 text-xs font-semibold text-success">
       <Icon.circleCheck className="size-3.5" />
       <span>Concluído</span>
     </div>
   ),
-  canceled: (
+  CANCELED: (
     <div className="flex items-center justify-start gap-2 text-xs font-semibold text-destructive">
       <Icon.circleX className="size-3.5" />
       <span>Cancelado</span>
@@ -27,7 +28,10 @@ const tableStatus = {
   )
 };
 
-export const CustomerSessionsTable = ({ data }: CustomerSessionsProps) => {
+export const CustomerSessionsTable = async ({
+  customerId
+}: CustomerSessionsProps) => {
+  const data = await getConsultations(customerId);
   return data.length ? (
     <div className="h-96 overflow-y-auto">
       <table className="w-full">
@@ -38,7 +42,7 @@ export const CustomerSessionsTable = ({ data }: CustomerSessionsProps) => {
           </tr>
         </thead>
         <tbody>
-          {data.map(({ id, date, status }) => (
+          {data.map(({ id, startTime, status }) => (
             <tr key={id} className="even:bg-background">
               <td className="my-1.5 flex items-center justify-center">
                 {tableStatus[status]}
@@ -46,7 +50,7 @@ export const CustomerSessionsTable = ({ data }: CustomerSessionsProps) => {
               <td>
                 <div className="flex items-center justify-center gap-1.5 text-sm">
                   <Icon.calendar className="size-3.5" />
-                  <span>{date}</span>
+                  <span>{format(startTime, `dd/MM/yyyy - HH:MM`)}</span>
                 </div>
               </td>
             </tr>
@@ -57,7 +61,10 @@ export const CustomerSessionsTable = ({ data }: CustomerSessionsProps) => {
   ) : (
     <div className="flex flex-col gap-2 text-center">
       <p>Não há sessões cadastradas</p>
-      <Button>Cadastrar</Button>
+      <CreateConsultationDialog
+        customerId={customerId}
+        buttonTitle="Cadastrar"
+      />
     </div>
   );
 };

@@ -2,7 +2,7 @@
 
 import { ComponentProps } from 'react';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/_lib/utils';
 
 import { useInput } from './input-root';
 
@@ -13,7 +13,7 @@ export const InputLabel = ({ className, ...props }: InputLabelProps) => {
   return (
     <label
       className={cn(
-        'pb-1 text-sm font-semibold',
+        'pb-1 text-sm font-semibold ',
         hasError && 'text-destructive',
         className
       )}

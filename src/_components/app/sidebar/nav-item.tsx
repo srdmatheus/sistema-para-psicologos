@@ -3,9 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { DynamicIcon, IconName } from '@/components';
-
-import { cn } from '@/lib/utils';
+import { DynamicIcon, IconName } from '@/_components';
+import { cn } from '@/_lib/utils';
 
 export type NavItem = {
   name: string;

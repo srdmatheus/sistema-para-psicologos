@@ -1,10 +1,13 @@
 import Link from 'next/link';
 
-import { CustomerModel } from '@/model/customer';
+import { Customer } from '@prisma/client';
 
-export const CustomerList = ({ customers }: { customers: CustomerModel[] }) => {
+type CustomerListProps = {
+  customers: Customer[];
+};
+export const CustomerList = ({ customers }: CustomerListProps) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex w-full flex-col gap-1">
       {customers.map((customer) => (
         <Link
           href={`/clientes/${customer.id}`}

@@ -2,8 +2,9 @@
 
 import { ReactNode, useState } from 'react';
 
-import { createCustomer } from '@/actions/create-customer';
+import { createCustomer } from '@/_actions/create-customer';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Prisma } from '@prisma/client';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -15,7 +16,7 @@ const formSchema = z.object({
   birthDate: z.string().optional(),
   email: z.string().optional(),
   insurance: z.string().optional(),
-  status: z.string(),
+  status: z.enum(['ACTIVE', 'INACTIVE']),
   next_session: z.string().optional(),
   next_session_price: z.string().optional(),
   observations: z.string().optional()
@@ -38,15 +39,24 @@ export const CreateCustomerDialog = ({
     formState: { errors }
   } = useForm<FormData>({
     defaultValues: {
-      status: 'active'
+      status: 'ACTIVE'
     },
     resolver: zodResolver(formSchema)
   });
   const [open, setOpen] = useState(false);
 
   const onSubmit = async (data: FormData) => {
-    await createCustomer(data);
-    console.log(data);
+    const customer: Prisma.CustomerCreateInput = {
+      name: data.name,
+      birthDate: data.birthDate ? new Date(data.birthDate) : null,
+      status: data.status,
+      phone: data.phone,
+      email: data.email,
+      insurance: false
+    };
+
+    await createCustomer(customer);
+
     reset(
       (formValues) => ({
         ...formValues
@@ -112,6 +122,7 @@ export const CreateCustomerDialog = ({
                 startContent={<Icon.phone className="size-4" />}
               />
             </Input.Root>
+
             <Input.Root setError={!!errors.birthDate?.message}>
               <Input.Label htmlFor="birthDate" className="px-1">
                 Data de nascimento
@@ -167,8 +178,8 @@ export const CreateCustomerDialog = ({
                     value={field.value}
                     className="flex gap-2"
                   >
-                    <Input.RadioItem value="active">Ativo</Input.RadioItem>
-                    <Input.RadioItem value="inactive">Inativo</Input.RadioItem>
+                    <Input.RadioItem value="ACTIVE">Ativo</Input.RadioItem>
+                    <Input.RadioItem value="INACTIVE">Inativo</Input.RadioItem>
                   </Input.RadioGroup>
                 )}
               />
