@@ -11,6 +11,9 @@ const config: Config = {
       manrope: ['var(--font-manrope)']
     },
     extend: {
+      screens: {
+        xs: '380px'
+      },
       colors: {
         background: {
           DEFAULT: 'rgb(var(--background))',
