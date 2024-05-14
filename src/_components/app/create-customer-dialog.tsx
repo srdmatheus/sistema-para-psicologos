@@ -25,11 +25,11 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 type CreateCustomerDialogProps = {
-  buttonTitle?: ReactNode;
+  trigger?: ReactNode;
 };
 
 export const CreateCustomerDialog = ({
-  buttonTitle
+  trigger
 }: CreateCustomerDialogProps) => {
   const {
     register,
@@ -79,16 +79,14 @@ export const CreateCustomerDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <Button>
-          {buttonTitle ? (
-            buttonTitle
-          ) : (
-            <>
-              <Icon.userPlus className="size-4" />
-              Novo cliente
-            </>
-          )}
-        </Button>
+        {trigger ? (
+          trigger
+        ) : (
+          <Button className="h-10">
+            <Icon.userPlus className="size-4" />
+            Novo cliente
+          </Button>
+        )}
       </Dialog.Trigger>
 
       <Dialog.Content className="flex max-w-[44rem] flex-col gap-4">

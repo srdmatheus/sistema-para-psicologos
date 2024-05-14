@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { Button, Dialog, Icon, Input } from '../ui';
+import { Button, Dialog, Icon, Input, Tooltip } from '../ui';
 
 const formSchema = z.object({
   note: z.string()
@@ -16,14 +16,11 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 type CreateNoteProps = {
-  buttonTitle?: ReactNode;
   customerId: string;
+  trigger?: ReactNode;
 };
 
-export const CreateNoteDialog = ({
-  buttonTitle,
-  customerId
-}: CreateNoteProps) => {
+export const CreateNoteDialog = ({ customerId, trigger }: CreateNoteProps) => {
   const { register, handleSubmit, reset } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   });
@@ -55,17 +52,24 @@ export const CreateNoteDialog = ({
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger asChild>
-        <Button>
-          {buttonTitle ? (
-            buttonTitle
-          ) : (
-            <>
-              <Icon.plus className="size-4" />
-              Nova anotação
-            </>
-          )}
-        </Button>
+      <Dialog.Trigger>
+        {trigger ? (
+          trigger
+        ) : (
+          <Tooltip.Root>
+            <Tooltip.Trigger asChild>
+              <Button size="icon" asChild>
+                <div>
+                  <Icon.notebookPen className="size-4" />
+                  <span className="sr-only">Nova anotação</span>
+                </div>
+              </Button>
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+              <p>Nova anotação</p>
+            </Tooltip.Content>
+          </Tooltip.Root>
+        )}
       </Dialog.Trigger>
 
       <Dialog.Content className="flex max-w-[48rem] flex-col gap-2">

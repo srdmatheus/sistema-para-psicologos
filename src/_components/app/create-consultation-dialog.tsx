@@ -8,7 +8,7 @@ import { Consultation } from '@prisma/client';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { Button, Dialog, Icon, Input } from '../ui';
+import { Button, Dialog, Icon, Input, Tooltip } from '../ui';
 import { Calendar } from '../ui/calendar';
 
 const formSchema = z.object({
@@ -20,8 +20,8 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 type CreateConsultationProps = {
-  buttonTitle?: ReactNode;
   customerId: string;
+  trigger?: ReactNode;
 };
 
 type HourType = {
@@ -44,8 +44,8 @@ const hoursAvailable: HourType[] = [
 ];
 
 export const CreateConsultationDialog = ({
-  buttonTitle,
-  customerId
+  customerId,
+  trigger
 }: CreateConsultationProps) => {
   const { handleSubmit, reset, control } = useForm<FormData>({
     defaultValues: {
@@ -56,6 +56,7 @@ export const CreateConsultationDialog = ({
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date>();
   const [hour, setHour] = useState<HourType>();
+
   const onSubmit = async (data: FormData) => {
     console.log(data);
     const consultation: Omit<Consultation, 'id' | 'createdAt' | 'updatedAt'> = {
@@ -87,17 +88,24 @@ export const CreateConsultationDialog = ({
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger asChild>
-        <Button>
-          {buttonTitle ? (
-            buttonTitle
-          ) : (
-            <>
-              <Icon.dollar className="size-4" />
-              Criar sessão
-            </>
-          )}
-        </Button>
+      <Dialog.Trigger>
+        {trigger ? (
+          trigger
+        ) : (
+          <Tooltip.Root>
+            <Tooltip.Trigger asChild>
+              <Button size="icon" asChild>
+                <div>
+                  <Icon.circleFadingPlus className="size-4" />
+                  <span className="sr-only">Nova consulta</span>
+                </div>
+              </Button>
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+              <p>Nova consulta</p>
+            </Tooltip.Content>
+          </Tooltip.Root>
+        )}
       </Dialog.Trigger>
 
       <Dialog.Content className="flex max-w-[30rem] flex-col gap-4">
@@ -146,13 +154,22 @@ export const CreateConsultationDialog = ({
                   value={field.value}
                   className="flex gap-2"
                 >
-                  <Input.RadioItem value="SCHEDULED" className="w-full">
+                  <Input.RadioItem
+                    value="SCHEDULED"
+                    className="w-full data-[state=checked]:border-orange-500 data-[state=checked]:bg-orange-500/10 data-[state=checked]:text-orange-500"
+                  >
                     Agendado
                   </Input.RadioItem>
-                  <Input.RadioItem value="CONCLUDED" className="w-full">
+                  <Input.RadioItem
+                    value="CONCLUDED"
+                    className="w-full data-[state=checked]:border-success data-[state=checked]:bg-success/10 data-[state=checked]:text-success"
+                  >
                     Concluído
                   </Input.RadioItem>
-                  <Input.RadioItem value="CANCELED" className="w-full">
+                  <Input.RadioItem
+                    value="CANCELED"
+                    className="w-full data-[state=checked]:border-destructive data-[state=checked]:bg-destructive/10 data-[state=checked]:text-destructive"
+                  >
                     Cancelado
                   </Input.RadioItem>
                 </Input.RadioGroup>
