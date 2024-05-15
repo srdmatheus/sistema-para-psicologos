@@ -1,26 +1,18 @@
 import { Suspense } from 'react';
 
-import { getCustomers } from '@/_actions/get-customers';
-import { CreateCustomerDialog, CustomerList } from '@/_components';
+import { CustomerList } from '@/_components';
 
-import { Search } from './_components/search';
+import { CustomerListSkeleton } from './_components/customer-list-skeleton';
 
-export default async function CustomerPage() {
-  const customers = await getCustomers();
+export default function CustomerPage() {
   return (
-    <>
-      <section className="w-full p-8">
-        <h1 className="text-3xl font-extrabold tracking-tight">Clientes</h1>
-        <div className="mt-8 flex gap-4">
-          <Search />
-          <CreateCustomerDialog />
-        </div>
-        <div className="mt-10 w-full rounded-xl bg-background-foreground p-4">
-          <Suspense fallback="carregando">
-            <CustomerList customers={customers} />
-          </Suspense>
-        </div>
-      </section>
-    </>
+    <section className="w-full p-2 xs:p-4 md:p-8">
+      <h1 className="text-3xl font-extrabold tracking-tight">Clientes</h1>
+      <div className="mt-10 w-full rounded-xl bg-background-foreground p-2 xs:p-4">
+        <Suspense fallback={<CustomerListSkeleton />}>
+          <CustomerList />
+        </Suspense>
+      </div>
+    </section>
   );
 }
