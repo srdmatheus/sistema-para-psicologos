@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 
-import { CustomerList } from '@/_components';
-
+import { CustomerList } from './_components/customer-list';
 import { CustomerListSkeleton } from './_components/customer-list-skeleton';
 
 export default function CustomerPage() {
