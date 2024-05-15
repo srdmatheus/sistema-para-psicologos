@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <Providers>
         <body
-          className={`${manrope.variable} h-dvh bg-background font-manrope font-medium text-foreground antialiased`}
+          className={`${manrope.variable} h-dvh overflow-x-hidden bg-background font-manrope font-medium text-foreground antialiased`}
         >
           {children}
         </body>
