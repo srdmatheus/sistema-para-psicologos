@@ -10,7 +10,7 @@ import { Prisma } from '@prisma/client';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { Button, Dialog, Icon, Input } from '../ui';
+import { Button, Dialog, Icon, Input, Tooltip } from '../ui';
 
 const formSchema = z.object({
   name: z.string().min(1, { message: 'Nome é obrigatório' }),
@@ -25,12 +25,12 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 type UpdateCustomerDialogProps = {
-  customTitle?: ReactNode;
   customerId: string;
+  trigger?: ReactNode;
 };
 
 export const UpdateCustomerDialog = ({
-  customTitle,
+  trigger,
   customerId
 }: UpdateCustomerDialogProps) => {
   const {
@@ -68,6 +68,7 @@ export const UpdateCustomerDialog = ({
       status: data.status,
       phone: data.phone,
       email: data.email,
+      description: data.description,
       insurance: data.insurance === 'yes' ? true : false
     };
 
@@ -94,17 +95,24 @@ export const UpdateCustomerDialog = ({
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger asChild>
-        <Button>
-          {customTitle ? (
-            customTitle
-          ) : (
-            <>
-              <Icon.pencil size={16} />
-              Editar cliente
-            </>
-          )}
-        </Button>
+      <Dialog.Trigger>
+        {trigger ? (
+          trigger
+        ) : (
+          <Tooltip.Root>
+            <Tooltip.Trigger asChild>
+              <Button size="icon" asChild>
+                <div>
+                  <Icon.pencil className="size-4" />
+                  <span className="sr-only">Editar cliente</span>
+                </div>
+              </Button>
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+              <p>Editar cliente</p>
+            </Tooltip.Content>
+          </Tooltip.Root>
+        )}
       </Dialog.Trigger>
 
       <Dialog.Content className="flex max-w-[44rem] flex-col gap-4">
