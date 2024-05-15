@@ -12,7 +12,7 @@ const config: Config = {
     },
     extend: {
       screens: {
-        xs: '380px'
+        xs: '480px'
       },
       colors: {
         background: {
