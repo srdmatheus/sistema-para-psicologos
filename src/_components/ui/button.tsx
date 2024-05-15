@@ -11,11 +11,14 @@ export const buttonVariants = cva(
       variant: {
         default: 'bg-primary text-background-foreground hover:bg-primary/90',
         outline:
-          'border bg-background hover:bg-background-foreground text-foreground hover:text-primary'
+          'border bg-background hover:bg-background-foreground text-foreground hover:text-primary',
+        ghost:
+          'border-none bg-transparent hover:bg-background text-foreground hover:text-primary'
       },
       size: {
         default: 'px-5 py-2.5',
-        sm: 'px-4 py-1'
+        sm: 'px-4 py-1',
+        icon: 'h-10 w-10'
       }
     },
     defaultVariants: {
