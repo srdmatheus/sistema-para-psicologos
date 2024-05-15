@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 
-import { getConsultations } from '@/_actions/get-consultations';
 import { getCustomer } from '@/_actions/get-customer';
 import { getNotes } from '@/_actions/get-notes';
 import { CreateConsultationDialog } from '@/_components/app/create-consultation-dialog';
@@ -22,15 +21,14 @@ export default async function CustomerPage({
   params: { customerId }
 }: CustomerPageProps) {
   const customer = await getCustomer(customerId);
-  const consultations = await getConsultations(customerId);
   const notes = await getNotes(customerId);
 
   if (!customer) {
     return notFound();
   }
   return (
-    <section className="grid w-full grid-cols-10 divide-x">
-      <div className="col-span-6 p-8">
+    <section className="grid h-full w-full grid-cols-1 xl:grid-cols-10 xl:divide-x">
+      <div className="col-span-6 p-8 pb-4 xl:pb-8">
         <div className="h-full rounded-xl bg-background-foreground p-4">
           <div className="flex items-center justify-between">
             <BackButton />
@@ -40,16 +38,22 @@ export default async function CustomerPage({
               <UpdateCustomerDialog customerId={customerId} />
             </div>
           </div>
-          <div className="mt-8 flex justify-between">
-            <h2 className="text-2xl font-extrabold tracking-tight">
-              {customer.name}
-            </h2>
+          <div className="mt-8">
+            <CustomerDetails customer={customer} />
           </div>
 
-          <CustomerDetails customer={customer} consultations={consultations} />
+          <hr className="my-4" />
 
           <div>
-            <hr className="my-4" />
+            <h3 className="mt-4 text-lg font-bold text-primary">
+              Questionários aplicados
+            </h3>
+            {/* TODO: criar componente de questionário */}
+            <p>Padrões de pensamentos</p>
+          </div>
+
+          <hr className="my-4" />
+          <div>
             <h3 className="mb-4 mt-4 text-lg font-bold text-primary">
               Anotações
             </h3>
@@ -62,7 +66,7 @@ export default async function CustomerPage({
         </div>
       </div>
 
-      <div className="col-span-4 p-8">
+      <div className="col-span-4 p-8 pt-4 xl:pt-8">
         <div className="h-full rounded-xl bg-background-foreground p-8">
           <h2 className="pb-4 text-xl font-extrabold tracking-tight">
             Sessões

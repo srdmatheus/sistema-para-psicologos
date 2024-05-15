@@ -1,124 +1,53 @@
 'use client';
 
-import { Icon } from '@/_components';
-import { Consultation, Customer } from '@prisma/client';
-import { differenceInYears, format } from 'date-fns';
+import { useState } from 'react';
 
-type CustomerDetailsProps = {
-  customer: Customer;
-  consultations: Consultation[];
-};
+import { Tooltip } from '@/_components';
+import { cn } from '@/_lib/utils';
+import { Customer } from '@prisma/client';
 
-export const CustomerDetails = ({
-  customer,
-  consultations
-}: CustomerDetailsProps) => {
-  const { email, phone, status, birthDate, insurance } = customer;
+import { CustomerContactDetails } from './customer-contact-details';
 
-  const totalConsultations = consultations.filter(
-    (consultation) => consultation.status === 'CONCLUDED'
-  ).length;
+export const CustomerDetails = ({ customer }: { customer: Customer }) => {
+  const [showCustomerContact, setShowCustomerContact] = useState(false);
 
-  const handleCopyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-  };
-
+  const handleToggleCustomerContact = () =>
+    setShowCustomerContact((prev) => !prev);
   return (
     <div>
-      <div className="flex items-start justify-start">
-        <div>
-          <div className="group flex items-center gap-1">
-            <Icon.atSign className="size-4" />
-            <p className="font-bold">
-              E-mail:{' '}
-              <span className="font-medium">
-                {email ? email : 'não informado'}
-              </span>
-            </p>
-            {email && (
-              <button
-                onClick={() => handleCopyToClipboard(email)}
-                className="invisible p-2 group-hover:visible group-hover:transition-all"
-              >
-                <Icon.copy className="size-4" />
-                <span className="sr-only">Copiar</span>
-              </button>
-            )}
-          </div>
+      <div className="flex items-center gap-3">
+        <h2 className="text-2xl font-extrabold tracking-tight">
+          {customer.name}
+        </h2>
 
-          <div className="group flex items-center gap-1">
-            <Icon.phone className="size-4" />
-            <p className="font-bold">
-              Telefone:{' '}
-              <span className="font-medium">
-                {phone ? phone : 'não informado'}
-              </span>
+        <Tooltip.Root>
+          <Tooltip.Trigger asChild>
+            <div className="p-1.5">
+              <div
+                className={cn(
+                  'size-2.5 rounded-full',
+                  customer.status === 'ACTIVE' ? 'bg-success' : 'bg-destructive'
+                )}
+              />
+            </div>
+          </Tooltip.Trigger>
+          <Tooltip.Content>
+            <p>
+              {customer.status === 'ACTIVE'
+                ? 'Cliente ativo'
+                : 'Cliente inativo'}
             </p>
-            {phone && (
-              <button
-                onClick={() => handleCopyToClipboard(phone)}
-                className="invisible p-2 group-hover:visible group-hover:transition-all"
-              >
-                <Icon.copy className="size-4" />
-                <span className="sr-only">Copiar</span>
-              </button>
-            )}
-          </div>
-
-          <div className="group flex items-center gap-1">
-            <Icon.calendar className="size-4" />
-            <p className="font-bold">
-              Data de nascimento:{' '}
-              <span className="font-medium">
-                {birthDate
-                  ? format(birthDate, 'dd/MM/yyyy') +
-                    ` (${differenceInYears(new Date(), birthDate)} anos)`
-                  : 'não informado'}
-              </span>
-            </p>
-            {birthDate && (
-              <button
-                onClick={() => handleCopyToClipboard(String(birthDate))}
-                className="invisible p-2 group-hover:visible group-hover:transition-all"
-              >
-                <Icon.copy className="size-4" />
-                <span className="sr-only">Copiar</span>
-              </button>
-            )}
-          </div>
-        </div>
-        <div>
-          <div className="group mb-2 flex items-center gap-1">
-            <p className="font-bold">
-              Status:{' '}
-              <span className="font-medium">
-                {status === 'ACTIVE' ? 'Ativo' : 'Inativo'}
-              </span>
-            </p>
-          </div>
-
-          <div className="group mb-2 flex items-center gap-1">
-            <p className="font-bold">
-              Convênio:{' '}
-              <span className="font-medium">{insurance ? 'Sim' : 'Não'}</span>
-            </p>
-          </div>
-          <div className="group flex items-center gap-1">
-            <p className="font-bold">
-              Sessões concluídas:{' '}
-              <span className="font-medium">{totalConsultations}</span>
-            </p>
-          </div>
-        </div>
+          </Tooltip.Content>
+        </Tooltip.Root>
       </div>
-      <hr className="my-4" />
 
-      <div>
-        <h3 className="mt-4 text-lg font-bold text-primary">
-          Questionários aplicados
-        </h3>
-        <p>Padrões de pensamentos</p>
-      </div>
+      <button
+        onClick={handleToggleCustomerContact}
+        className="text-sm hover:text-primary hover:underline"
+      >
+        {showCustomerContact ? 'Ocultar' : 'Exibir informações de contato'}
+      </button>
+      {showCustomerContact && <CustomerContactDetails customer={customer} />}
     </div>
   );
 };
