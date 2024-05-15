@@ -17,12 +17,18 @@
     --scroll-background: 145 147 150;
   }
 
+  img {
+    @apply h-auto block max-w-full
+  }
+
+
   * {
     scrollbar-width: auto;
     scrollbar-color: rgb(var(--scroll)) rgb(--var(--scroll-background));
   }
   *::-webkit-scrollbar {
     width: 5px;
+    height: 5px;
   }
   *::-webkit-scrollbar-track {
     background: rgb(--var(--scroll-background));

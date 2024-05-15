@@ -30,7 +30,8 @@ export const NavItem = ({ href, icon, name }: NavItem) => {
               isActive && 'text-primary'
             )}
           >
-            <DynamicIcon name={icon} className="size-5" /> {!isMobile && name}
+            <DynamicIcon name={icon} className="size-5" />
+            <span className="hidden md:block">{name}</span>
           </Link>
         </Tooltip.Trigger>
         {isMobile && (
