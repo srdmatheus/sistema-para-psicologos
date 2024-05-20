@@ -12,6 +12,12 @@ enum CustomerStatus {
   INACTIVE
 }
 
+enum ConsultationStatus {
+  SCHEDULED
+  CONCLUDED
+  CANCELED
+}
+
 model Customer {
   id            String         @id @default(uuid())
   name          String
@@ -20,29 +26,25 @@ model Customer {
   insurance     Boolean?
   status        CustomerStatus
   description   String?
+  birthDate     DateTime?      @map("birth_date")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+  userId        String
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   consultations Consultation[]
   notes         Note[]
-  birthDate     DateTime?      @map(name: "birth_date")
-  createdAt     DateTime       @default(now()) @map(name: "created_at")
-  updatedAt     DateTime       @updatedAt @map(name: "updated_at")
 
   @@map("customers")
 }
 
-enum ConsultationStatus {
-  SCHEDULED
-  CONCLUDED
-  CANCELED
-}
-
 model Consultation {
   id         String             @id @default(uuid())
-  startTime  DateTime           @map(name: "start_time")
-  Customer   Customer           @relation(fields: [customerId], references: [id])
-  customerId String
+  startTime  DateTime           @map("start_time")
   status     ConsultationStatus @default(SCHEDULED)
-  createdAt  DateTime           @default(now()) @map(name: "created_at")
-  updatedAt  DateTime           @updatedAt @map(name: "updated_at")
+  createdAt  DateTime           @default(now()) @map("created_at")
+  updatedAt  DateTime           @updatedAt @map("updated_at")
+  customerId String
+  customer   Customer           @relation(fields: [customerId], references: [id])
 
   @@map("consultations")
 }
@@ -50,10 +52,61 @@ model Consultation {
 model Note {
   id         String   @id @default(uuid())
   note       String
-  Customer   Customer @relation(fields: [customerId], references: [id])
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
   customerId String
-  createdAt  DateTime @default(now()) @map(name: "created_at")
-  updatedAt  DateTime @updatedAt @map(name: "updated_at")
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
 
   @@map("notes")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  expires      DateTime
+  userId       String   @map("user_id")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id            String     @id @default(cuid())
+  name          String?
+  email         String?    @unique
+  emailVerified DateTime?  @map("email_verified")
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  customers     Customer[]
+
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
 }
