@@ -3,10 +3,10 @@
 import { revalidatePath } from 'next/cache';
 
 import { db } from '@/_lib/prisma';
-import { Consultation } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 export const createConsultation = async (
-  data: Omit<Consultation, 'id' | 'createdAt' | 'updatedAt'>
+  data: Prisma.ConsultationCreateInput
 ) => {
   await db.consultation.create({
     data
