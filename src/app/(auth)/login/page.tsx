@@ -1,34 +1,35 @@
-'use client';
-
 import Image from 'next/image';
+import Link from 'next/link';
 
-import { Button, Input } from '@/_components';
+import { LoginForm } from './_components/login-form';
 
-export default function LoginPage() {
+export default async function LoginPage() {
   return (
-    <section className="grid h-dvh w-full grid-cols-2">
-      <div className="flex w-full flex-col items-center justify-center px-20">
-        <Image
-          width={150}
-          height={100}
-          sizes="100vw"
-          priority
-          quality={100}
-          src="/logo.svg"
-          alt="Logo Psi Planeja"
-        />
-        <form className="flex flex-col gap-4">
-          <Input.Root>
-            <Input.Text />
-          </Input.Root>
-          <Input.Root>
-            <Input.Text />
-          </Input.Root>
-          <Button className="w-full">Entrar</Button>
-        </form>
-      </div>
-      <div className="relative h-full w-full">
-        <Image src="/bg-login.webp" fill alt="background page" />
+    <section className="flex h-dvh w-full items-center justify-center bg-opacity-30 bg-[url('/bg-login.webp')] bg-cover">
+      <div className="flex flex-col items-center justify-center rounded-xl bg-background-foreground px-36 py-4">
+        <div className="my-28 flex flex-col items-center justify-center gap-8">
+          <Image
+            width={240}
+            height={200}
+            sizes="100vw"
+            priority
+            src="/logo.svg"
+            alt="Logo Psi Planeja"
+          />
+        </div>
+
+        <LoginForm />
+
+        <footer className="text-sm">
+          Criado com 💜 por{' '}
+          <Link
+            target="_blank"
+            href="https://linkedIn.com/in/srdmatheus"
+            className="text-primary/80 hover:text-primary hover:underline"
+          >
+            Matheus Ribeiro
+          </Link>
+        </footer>
       </div>
     </section>
   );
