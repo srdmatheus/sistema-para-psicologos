@@ -2,7 +2,19 @@
 
 import { db } from '@/_lib/prisma';
 
+import { auth } from '../auth';
+
 export const getCustomers = async () => {
-  const customers = await db.customer.findMany();
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    throw new Error('Usuário não autenticado');
+  }
+
+  const customers = await db.customer.findMany({
+    where: {
+      userId: session.user.id
+    }
+  });
   return customers;
 };
