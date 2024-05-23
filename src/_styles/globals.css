@@ -4,6 +4,8 @@
 
 @layer base {
   :root {
+    --border: 229 231 235;
+
     --background: 245 247 250;
     --background-foreground: 255 255 255;
 
@@ -17,10 +19,31 @@
     --scroll-background: 145 147 150;
   }
 
-  img {
-    @apply h-auto block max-w-full
+  .dark {
+    --border: 29 31 35;
+
+    --background: 14 16 21;
+    --background-foreground: 28 30 36;
+
+    --primary: 156 130 255;
+    --foreground: 150 150 150;
+
+    --destructive: 255 86 91;
+    --success: 48 209 103;
+
+    --scroll: 75 78 85;
+    --scroll-background: 45 48 55;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
   }
 
+  img {
+    @apply h-auto block max-w-full;
+  }
 
   * {
     scrollbar-width: auto;
@@ -36,5 +59,9 @@
   *::-webkit-scrollbar-thumb {
     background-color: rgb(var(--scroll));
     border-radius: 8px;
+  }
+
+  body {
+    @apply h-dvh overflow-x-hidden bg-background font-manrope font-medium text-foreground antialiased; 
   }
 }

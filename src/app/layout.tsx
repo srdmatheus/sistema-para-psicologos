@@ -18,13 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <Providers>
-        <body
-          className={`${manrope.variable} h-dvh overflow-x-hidden bg-background font-manrope font-medium text-foreground antialiased`}
-        >
-          {children}
-        </body>
-      </Providers>
+      <body className={`${manrope.variable}`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
