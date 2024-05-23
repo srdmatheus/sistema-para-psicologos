@@ -62,7 +62,7 @@ export const UpdateCustomerDialog = ({
   const [open, setOpen] = useState(false);
 
   const onSubmit = async (data: FormData) => {
-    const customerUpdated: Prisma.CustomerCreateInput = {
+    const customerUpdated: Prisma.CustomerUpdateInput = {
       name: data.name,
       birthDate: data.birthDate ? new Date(data.birthDate) : null,
       status: data.status,
