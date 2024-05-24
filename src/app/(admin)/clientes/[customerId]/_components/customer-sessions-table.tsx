@@ -61,10 +61,7 @@ export const CustomerSessionsTable = async ({
   ) : (
     <div className="flex flex-col gap-2 text-center">
       <p>Não há sessões cadastradas</p>
-      <CreateConsultationDialog
-        customerId={customerId}
-        buttonTitle="Cadastrar"
-      />
+      <CreateConsultationDialog customerId={customerId} />
     </div>
   );
 };
