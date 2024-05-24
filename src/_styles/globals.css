@@ -20,7 +20,7 @@
   }
 
   .dark {
-    --border: 29 31 35;
+    --border: 35 37 41;
 
     --background: 14 16 21;
     --background-foreground: 28 30 36;
@@ -39,6 +39,10 @@
 @layer base {
   * {
     @apply border-border;
+  }
+
+  input {
+    @apply bg-transparent
   }
 
   img {
