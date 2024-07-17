@@ -36,13 +36,13 @@ export function DateTimePicker({ customerId }: DateTimePickerProps) {
   const [date, setDate] = useState<Date>();
   const [hour, setHour] = useState<HourType>();
 
-  console.log(customerId);
-  // TODO: criar registro no calendario do psicologo
   return (
     <div>
       <Popover>
         <PopoverTrigger asChild>
           <Button variant="outline">
+            <span className="sr-only">{customerId}</span>
+            {/* TODO: Remover */}
             <Icon.calendar size={16} />
 
             {date && hour
