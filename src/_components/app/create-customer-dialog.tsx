@@ -2,9 +2,11 @@
 
 import { ReactNode, useState } from 'react';
 
-import { createCustomer } from '@/_actions/create-customer';
+import {
+  createCustomer,
+  CreateCustomerInput
+} from '@/_actions/create-customer';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Prisma } from '@prisma/client';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -46,12 +48,12 @@ export const CreateCustomerDialog = ({
   const [open, setOpen] = useState(false);
 
   const onSubmit = async (data: FormData) => {
-    const customer: Prisma.CustomerCreateInput = {
+    const customer: CreateCustomerInput = {
       name: data.name,
       birthDate: data.birthDate ? new Date(data.birthDate) : null,
       status: data.status,
-      phone: data.phone,
-      email: data.email,
+      phone: data.phone || null,
+      email: data.email || null,
       insurance: false
     };
 

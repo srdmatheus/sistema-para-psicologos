@@ -4,7 +4,7 @@ import { ReactNode, useState } from 'react';
 
 import { createConsultation } from '@/_actions/create-consultation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Consultation } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -63,7 +63,7 @@ export const CreateConsultationDialog = ({
 
   const onSubmit = async (data: FormData) => {
     console.log(data);
-    const consultation: Omit<Consultation, 'id' | 'createdAt' | 'updatedAt'> = {
+    const consultation: Prisma.ConsultationUncheckedCreateInput = {
       customerId,
       status: data.status,
       startTime: new Date(data.startTime)

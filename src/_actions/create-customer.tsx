@@ -7,7 +7,10 @@ import { Prisma } from '@prisma/client';
 
 import { auth } from '../auth';
 
-type CreateCustomerInput = Omit<Prisma.CustomerUncheckedCreateInput, 'userId'>;
+export type CreateCustomerInput = Omit<
+  Prisma.CustomerUncheckedCreateInput,
+  'userId'
+>;
 
 export const createCustomer = async (data: CreateCustomerInput) => {
   const session = await auth();
