@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 import { getCustomer } from '@/_actions/get-customer';
 import { getNotes } from '@/_actions/get-notes';
@@ -23,10 +23,6 @@ export default async function CustomerPage({
 }: CustomerPageProps) {
   const session = await auth();
 
-  if (!session?.user) {
-    redirect('/login');
-  }
-
   const customer = await getCustomer(customerId);
   const notes = await getNotes(customerId);
 
@@ -34,7 +30,7 @@ export default async function CustomerPage({
     return notFound();
   }
 
-  if (customer.userId !== session.user.id) {
+  if (customer.userId !== session?.user?.id) {
     return (
       <section className="grid h-full w-full p-8 pb-4">
         <div className="h-full rounded-xl bg-background-foreground p-4">
